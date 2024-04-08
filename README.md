@@ -1,6 +1,6 @@
 # OpenFGA ROCK
 
-[![Release](https://github.com/canonical/openfga-rock/actions/workflows/push_main.yaml/badge.svg)](https://github.com/canonical/openfga-rock/actions/workflows/push_main.yaml)
+[![Release](https://github.com/canonical/openfga-rock/actions/workflows/ci.yaml/badge.svg)](https://github.com/canonical/openfga-rock/actions/workflows/ci.yaml)
 [![Container Registry](https://img.shields.io/badge/Container%20Registry-published-blue)](https://github.com/canonical/openfga-rock/pkgs/container/openfga)
 
 
