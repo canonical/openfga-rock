@@ -1,24 +1,33 @@
 # OpenFGA ROCK
 
-[![Release](https://github.com/canonical/openfga-rock/actions/workflows/ci.yaml/badge.svg)](https://github.com/canonical/openfga-rock/actions/workflows/ci.yaml)
 [![Container Registry](https://img.shields.io/badge/Container%20Registry-published-blue)](https://github.com/canonical/openfga-rock/pkgs/container/openfga)
+![Latest Version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcanonical%2Fopenfga-rock%2Fmain%2Frockcraft.yaml&query=%24.version&label=Release&color=red)
+[![License](https://img.shields.io/github/license/canonical/openfga-rock?label=License)](https://github.com/canonical/openfga-rock/blob/main/LICENSE)
 
+[![Release](https://github.com/canonical/openfga-rock/actions/workflows/ci.yaml/badge.svg)](https://github.com/canonical/openfga-rock/actions/workflows/ci.yaml)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196.svg)](https://conventionalcommits.org)
 
-This repository contains the packaging metadata for creating an OpenFGA ROCK built from Canonical OpenFGA release artifacts.  For more information on ROCKs, visit the [rockcraft Github](https://github.com/canonical/rockcraft). 
-
-
+This repository contains the packaging metadata for creating an OpenFGA ROCK
+built from Canonical OpenFGA release artifacts. For more information on ROCKs,
+visit the [rockcraft GitHub](https://github.com/canonical/rockcraft).
 
 ## Building the ROCK
-The steps outlined below are based on the assumption that you are building the ROCK with the latest LTS of Ubuntu.  If you are using another version of Ubuntu or another operating system, the process may be different.
+
+The steps outlined below are based on the assumption that you are building the
+ROCK with the latest LTS of Ubuntu. If you are using another version of Ubuntu
+or another operating system, the process may be different.
 
 ### Clone Repository
-```bash
+
+```shell
 git clone git@github.com:canonical/openfga-rock.git
 cd openfga-rock
 ```
 
 ### Installing Prerequisites
-```bash
+
+```shell
 sudo snap install rockcraft --edge
 sudo snap install docker
 sudo snap install lxd
@@ -26,22 +35,24 @@ sudo snap install skopeo --edge --devmode
 ```
 
 ### Configuring Prerequisites
-```bash
-sudo usermod -aG docker $USER 
+
+```shell
+sudo usermod -aG docker $USER
 sudo lxd init --auto
 ```
-*_NOTE:_* You will need to open a new shell for the group change to take effect (i.e. `su - $USER`)
 
+**NOTE:** You will need to open a new shell for the group change to take
+effect (i.e. `su - $USER`)
 
 ### Packing and Running the ROCK
-```bash
+
+```shell
 rockcraft pack
 skopeo --insecure-policy copy oci-archive:openfga*.rock docker-daemon:<username>/openfga:<tag>
 docker run --rm -it <username>/openfga:<tag>
 ```
 
 ## License
-The OpenFGA ROCK is free software, distributed under the Apache
-Software License, version 2.0. See
-[LICENSE](https://github.com/canonical/zookeeper-rock/blob/3.6/stable/LICENSE)
-for more information.
+
+The OpenFGA ROCK is free software, distributed under the Apache Software
+License, version 2.0. See [LICENSE](./LICENSE) for more information.
