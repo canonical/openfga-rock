@@ -1,4 +1,4 @@
-name: Push (main)
+name: CI
 
 # When pushing to the "main" branch, we:
 # * build the rock image
