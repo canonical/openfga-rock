@@ -27,7 +27,7 @@ parts:
   openfga:
     plugin: go
     build-snaps:
-      - go/1.21/stable
+      - go/1.23/stable
     build-environment:
       - CGO_ENABLED: 0
     source: https://github.com/openfga/openfga
@@ -50,7 +50,7 @@ parts:
   grpc_health_probe:
     plugin: go
     build-snaps:
-      - go/1.21/stable
+      - go/1.23/stable
     build-environment:
       - CGO_ENABLED: 0
     source: https://github.com/grpc-ecosystem/grpc-health-probe
@@ -58,3 +58,10 @@ parts:
     source-tag: v0.4.21
     override-build: |
       go build -a -tags netgo -ldflags=-w -o ${CRAFT_PART_INSTALL}/bin/grpc_health_probe
+
+  deb-security-manifest:
+    plugin: nil
+    override-prime: |
+      set -x
+      mkdir -p $CRAFT_PRIME/usr/share/rocks/
+      (echo "# os-release" && cat /etc/os-release && echo "# dpkg-query" && dpkg-query --admindir=$CRAFT_PRIME/var/lib/dpkg/ -f '${db:Status-Abbrev},${binary:Package},${Version},${source:Package},${Source:Version}\n' -W) > $CRAFT_PRIME/usr/share/rocks/dpkg.query
