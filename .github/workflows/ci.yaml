@@ -28,7 +28,8 @@ jobs:
     if: ${{ (github.ref == 'refs/heads/main') || (github.ref_type == 'tag') }}
     needs: build
     uses: ./.github/workflows/publish.yaml
-
+    secrets:
+      token: ${{ secrets.PAT_TOKEN }}
   scan:
     if: ${{ (github.ref == 'refs/heads/main') || (github.ref_type == 'tag') }}
     needs: publish
