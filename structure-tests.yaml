@@ -1,0 +1,21 @@
+schemaVersion: 2.0.0
+
+globalEnvVars:
+  - key: "OPENFGA_DATASTORE_ENGINE"
+    value: "memory"
+
+fileExistenceTests:
+- name: "no go binary"
+  path: "/usr/bin/go"
+  shouldExist: false
+- name: "application go binary"
+  path: "/bin/openfga"
+  shouldExist: true
+- name: "pebble entrypoint"
+  path: "/bin/pebble"
+  shouldExist: true
+commandTests:
+- name: "application version"
+  command: "openfga"
+  args: ["version"]
+  exitCode: 0
