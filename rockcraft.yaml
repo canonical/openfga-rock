@@ -1,7 +1,7 @@
 name: openfga
 base: bare
 build-base: ubuntu@22.04
-version: "1.8.9"
+version: "1.9.0"
 summary: Openfga Authorization Server
 description: |
   OpenFGA is a flexible Authorization system inspired by Google's Zanzibar, designed for reliability and low latency at scale.
@@ -22,10 +22,10 @@ parts:
     build-snaps:
       - go/1.24/stable
     build-environment:
-      - CGO_ENABLED: 0
+      - CGO_ENABLED: "0"
     source: https://github.com/openfga/openfga
     source-type: git
-    source-tag: v1.8.9
+    source-tag: v1.9.0
     override-build: |
       src_config_path="github.com/openfga/openfga/internal"
       build_ver="${src_config_path}/build.Version"
@@ -43,12 +43,12 @@ parts:
   grpc_health_probe:
     plugin: go
     build-snaps:
-      - go/1.23/stable
+      - go/1.24/stable
     build-environment:
-      - CGO_ENABLED: 0
+      - CGO_ENABLED: "0"
     source: https://github.com/grpc-ecosystem/grpc-health-probe
     source-type: git
-    source-tag: v0.4.38
+    source-tag: v0.4.39
     override-build: |
       go build -a -tags netgo -ldflags=-w -o ${CRAFT_PART_INSTALL}/bin/grpc_health_probe
 
