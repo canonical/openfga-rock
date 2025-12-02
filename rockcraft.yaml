@@ -1,7 +1,7 @@
 name: openfga
 base: bare
 build-base: ubuntu@22.04
-version: "1.9.3"
+version: "1.10.1"
 summary: Openfga Authorization Server
 description: |
   OpenFGA is a flexible Authorization system inspired by Google's Zanzibar, designed for reliability and low latency at scale.
@@ -25,7 +25,7 @@ parts:
       - CGO_ENABLED: "0"
     source: https://github.com/openfga/openfga
     source-type: git
-    source-tag: v1.9.3
+    source-tag: v1.10.1
     override-build: |
       src_config_path="github.com/openfga/openfga/internal"
       build_ver="${src_config_path}/build.Version"
