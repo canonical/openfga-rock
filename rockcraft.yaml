@@ -55,8 +55,12 @@ parts:
       - CGO_ENABLED: "0"
     source: https://github.com/grpc-ecosystem/grpc-health-probe
     source-type: git
-    source-tag: v0.4.39
+    source-tag: v0.4.47
     override-build: |
+      go mod edit -replace google.golang.org/grpc=google.golang.org/grpc@v1.79.3
+      
+      go mod tidy
+      
       go build -a -tags netgo -ldflags=-w -o ${CRAFT_PART_INSTALL}/bin/grpc_health_probe
 
   deb-security-manifest:
