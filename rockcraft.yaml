@@ -9,6 +9,7 @@ license: Apache-2.0
 run-user: _daemon_
 platforms:
   amd64:
+  arm64:
 
 services:
   openfga:
@@ -43,7 +44,7 @@ parts:
       go mod tidy
 
       go mod download
-      go build -ldflags="${go_linker_flags}" -o ${CRAFT_PART_INSTALL}/bin/openfga ./cmd/openfga
+      GOARCH="${CRAFT_ARCH_BUILD_FOR}" go build -ldflags="${go_linker_flags}" -o ${CRAFT_PART_INSTALL}/bin/openfga ./cmd/openfga
 
   grpc_health_probe:
     plugin: go
@@ -57,7 +58,7 @@ parts:
     override-build: |
       go mod tidy
       
-      go build -a -tags netgo -ldflags=-w -o ${CRAFT_PART_INSTALL}/bin/grpc_health_probe
+      GOARCH="${CRAFT_ARCH_BUILD_FOR}" go build -a -tags netgo -ldflags=-w -o ${CRAFT_PART_INSTALL}/bin/grpc_health_probe
 
   deb-security-manifest:
     plugin: make
