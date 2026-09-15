@@ -40,7 +40,12 @@ parts:
 
       # Addressing CVE
       # TODO(@shipperizer) thing about using a git patch for the go.mod
-      
+      go mod edit -replace google.golang.org/grpc=google.golang.org/grpc@v1.83.2
+      go mod edit -replace golang.org/x/crypto=golang.org/x/crypto@v0.57.0
+      go mod edit -replace golang.org/x/net=golang.org/x/net@v0.59.0
+      go mod edit -replace golang.org/x/text=golang.org/x/text@v0.42.0
+      go mod edit -replace golang.org/x/sys=golang.org/x/sys@v0.47.0
+
       go mod tidy
 
       go mod download
@@ -56,6 +61,12 @@ parts:
     source-type: git
     source-tag: v0.4.48
     override-build: |
+      go mod edit -replace google.golang.org/grpc=google.golang.org/grpc@v1.83.2
+      go mod edit -replace golang.org/x/crypto=golang.org/x/crypto@v0.57.0
+      go mod edit -replace golang.org/x/net=golang.org/x/net@v0.59.0
+      go mod edit -replace golang.org/x/text=golang.org/x/text@v0.42.0
+      go mod edit -replace golang.org/x/sys=golang.org/x/sys@v0.47.0
+
       go mod tidy
       
       GOARCH="${CRAFT_ARCH_BUILD_FOR}" go build -a -tags netgo -ldflags=-w -o ${CRAFT_PART_INSTALL}/bin/grpc_health_probe
