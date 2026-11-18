@@ -1,0 +1,22 @@
+# Configuration for canonical/identity-team upstream-upgrade workflows.
+# Upstream repository, tag prefix, and rock image are auto-detected from rockcraft.yaml.
+
+trusted_link_hosts:
+  - openfga.dev
+
+charms:
+  - key: openfga
+    repo: canonical/openfga-operator
+    description: >-
+      Deploys the OpenFGA authorization server backed by PostgreSQL with
+      gRPC and HTTP endpoints.
+    files:
+      - charmcraft.yaml
+      - src/charm.py
+      - src/cli.py
+      - src/clients.py
+      - src/configs.py
+      - src/constants.py
+      - src/env_vars.py
+      - src/integrations.py
+      - src/services.py
