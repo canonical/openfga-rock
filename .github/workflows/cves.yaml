@@ -5,7 +5,7 @@ on:
   issues:
     types: [opened]
   schedule:
-     - cron: '0 0 * * 0'
+    - cron: '0 0 * * 0'
 
 jobs:
     list-all-issues:
@@ -14,17 +14,20 @@ jobs:
         runs-on: ubuntu-latest
         if: ${{ github.event_name == 'schedule' }}
         steps:
-          - run: echo ids=$(gh issue list --json number,author -q '.[] | select(.author.login == "ROCKsBot") | .number') >> $GITHUB_OUTPUT
-            id: list
+          - run: |
+              ids=$(gh issue list --json number,author -q '[.[] | select(.author.login == "ROCKsBot") | .number]')
+              echo "ids=${ids}" >> $GITHUB_OUTPUT
+            id: issues
             env:
                 GH_PAGER:
                 GH_TOKEN: ${{ github.token }}
                 GH_REPO: ${{ github.repository }}
-          - run: echo ids=$(echo ${{steps.list.outputs.ids}} | jq -R 'split(" ")') >> $GITHUB_OUTPUT
-            id: issues
 
     scheduled-check:
-        if: ${{ github.event_name == 'schedule' }}
+        if: ${{ github.event_name == 'schedule' && needs.list-all-issues.outputs.issues != '[]' && needs.list-all-issues.outputs.issues != '' }}
+        permissions:
+            contents: write
+            issues: write
         strategy:
             matrix:
                 issue: ${{ fromJson(needs.list-all-issues.outputs.issues) }}
@@ -35,6 +38,9 @@ jobs:
             issue: ${{ matrix.issue }}
 
     apply-labels:
+        permissions:
+            contents: write
+            issues: write
         uses: canonical/identity-team/.github/workflows/cve-check.yaml@00995831ff788db43992012900820edf7967305f # v1.19.2
         if: ${{ github.event.issue.id }}
 
