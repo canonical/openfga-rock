@@ -42,9 +42,13 @@ parts:
       # TODO(@shipperizer) thing about using a git patch for the go.mod
       go mod edit -replace google.golang.org/grpc=google.golang.org/grpc@v1.83.2
       go mod edit -replace golang.org/x/crypto=golang.org/x/crypto@v0.57.0
-      go mod edit -replace golang.org/x/net=golang.org/x/net@v0.59.0
+      go mod edit -replace golang.org/x/net=golang.org/x/net@v0.60.0
       go mod edit -replace golang.org/x/text=golang.org/x/text@v0.42.0
       go mod edit -replace golang.org/x/sys=golang.org/x/sys@v0.47.0
+      go mod edit -replace go.opentelemetry.io/otel/exporters/otlp/otlptrace=go.opentelemetry.io/otel/exporters/otlp/otlptrace@v1.45.0
+      go mod edit -replace go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc=go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc@v1.45.0
+      go mod edit -replace go.opentelemetry.io/otel/sdk=go.opentelemetry.io/otel/sdk@v1.45.0
+      go mod edit -replace github.com/jackc/pgx/v5=github.com/jackc/pgx/v5@v5.9.2
 
       go mod tidy
 
@@ -63,12 +67,12 @@ parts:
     override-build: |
       go mod edit -replace google.golang.org/grpc=google.golang.org/grpc@v1.83.2
       go mod edit -replace golang.org/x/crypto=golang.org/x/crypto@v0.57.0
-      go mod edit -replace golang.org/x/net=golang.org/x/net@v0.59.0
+      go mod edit -replace golang.org/x/net=golang.org/x/net@v0.60.0
       go mod edit -replace golang.org/x/text=golang.org/x/text@v0.42.0
       go mod edit -replace golang.org/x/sys=golang.org/x/sys@v0.47.0
 
       go mod tidy
-      
+
       GOARCH="${CRAFT_ARCH_BUILD_FOR}" go build -a -tags netgo -ldflags=-w -o ${CRAFT_PART_INSTALL}/bin/grpc_health_probe
 
   deb-security-manifest:
